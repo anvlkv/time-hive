@@ -9,29 +9,31 @@ import Events from '../imports/api/events';
 
 Meteor.startup(async () => {
   if (Spaces.find().count() === 0) {
-    const activity = {
-        name: 'test activity'
-    };
+    let i = 0;
+    while(i < 3) {
+        const activity = {
+            name: `test activity ${i}`
+        };
 
-    activity._id = await Activities.insert(activity);
+        activity._id = await Activities.insert(activity);
 
-    const event = {
-        name: 'test event',
-        startDate: new Date(),
-        endDate: new Date(),
+        const event = {
+            name: `test event ${i}`,
+            startDate: new Date(),
+            endDate: new Date(),
 
-    };
+        };
 
-    event._id = await Events.insert(event);
+        event._id = await Events.insert(event);
 
-    const spaceId = await Spaces.insert({
-        name: 'test space',
-        description: 'this is test',
-        activities: [activity],
-        events: [event]
-    });
-
-    console.log(`added Space ${spaceId}, with Activity ${activity._id}`);
+        await Spaces.insert({
+            name: `test space ${i}`,
+            description: `this is test ${i}`,
+            activities: [activity],
+            events: [event]
+        });
+        i ++;
+    }
   }
   // // If the Links collection is empty, add some data.
   // if (Links.find().count() === 0) {

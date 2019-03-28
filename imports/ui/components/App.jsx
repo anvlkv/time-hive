@@ -4,6 +4,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 import Landing from '../pages/Landing/Landing';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import ManageSpace from '../pages/ManageSpace/ManageSpace';
+import ManageSpaceContainer from '../pages/ManageSpace/ManageSpace.container';
 
 
 export default class App extends Component {
@@ -19,7 +20,7 @@ export default class App extends Component {
                 <MainLayout>
                     <Switch>
                         <Route exact path="/" component={Landing}/>
-                        <Route exact path="/my/space" component={ManageSpace}/>
+                        <Route path={`${ManageSpace.routePrefix}/:spaceId?`} component={ManageSpaceContainer}/>
                         {/*<PrivateRoute exact path="/my/time"/>*/}
                     </Switch>
                 </MainLayout>

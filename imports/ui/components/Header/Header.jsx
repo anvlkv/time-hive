@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import AccountsUIWrapper from '../Login/AccountsUIWrapper';
 import './Header.scss';
 
@@ -8,8 +8,8 @@ export default class Header extends Component {
         return (
             <header className="Header">
                 <nav>
-                    <Link to="/my/space">Space</Link>
-                    <Link to="/my/time">Time</Link>
+                    <NavLink to="/space">Space</NavLink>
+                    <NavLink to="/time">Time</NavLink>
                 </nav>
                 <AccountsUIWrapper/>
             </header>

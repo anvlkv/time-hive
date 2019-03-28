@@ -40,3 +40,9 @@ const SpaceSchema = new SimpleSchema({
 Spaces.attachSchema(SpaceSchema);
 
 export default Spaces;
+
+if (Meteor.isServer) {
+    Meteor.publish('spaces.my', function tasksPublication() {
+        return Spaces.find();
+    });
+}
