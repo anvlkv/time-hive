@@ -1,14 +1,23 @@
-.Sidebar {
+aside.Sidebar {
   background-color: springgreen;
   padding: 10px;
-  aside {
-    display: flex;
-    flex-direction: column;
-  }
+  align-self: stretch;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
   nav {
     padding-left: 20px;
     line-height: 2.2;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    a{
+      display: block;
+      background-color: aquamarine;
+      padding: 10px;
+    }
   }
 }

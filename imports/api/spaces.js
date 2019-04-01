@@ -42,7 +42,15 @@ Spaces.attachSchema(SpaceSchema);
 export default Spaces;
 
 if (Meteor.isServer) {
-    Meteor.publish('spaces.my', function tasksPublication() {
+    Meteor.publish('spaces.my', function pubSpacesMy() {
         return Spaces.find();
+    });
+
+    Meteor.publish('spaces.dashboard', function pubSpacesDashboard() {
+        return Spaces.find();
+    });
+
+    Meteor.publish('spaces.detail', function pubSpaceDetail(spaceId) {
+        return Spaces.find({_id: spaceId});
     });
 }

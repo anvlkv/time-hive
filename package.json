@@ -2,7 +2,7 @@
   "name": "time-hive",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor $NODE_DEBUG_OPTION run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "reset": "meteor reset",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
@@ -15,6 +15,7 @@
     "lodash": "^4.17.11",
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.5.0",
+    "react-contenteditable": "^3.2.6",
     "react-dom": "^16.5.0",
     "react-router-dom": "^5.0.0",
     "reset-css": "^4.0.1",
@@ -26,5 +27,8 @@
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "console.table": "^0.10.0"
   }
 }

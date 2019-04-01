@@ -22,7 +22,14 @@ export const ActivitiesSchema = new SimpleSchema({
     colorCode: {
         type: String,
         label: 'color',
-        autoValue: getRandomColor
+        autoValue: function() {
+            if (this.isInsert) {
+                return  getRandomColor()
+            }
+            else if (this.isUpsert) {
+                return {$setOnInsert: getRandomColor()};
+            }
+        }
     }
 });
 
@@ -30,6 +37,22 @@ export const ActivitiesSchema = new SimpleSchema({
 Activities.attachSchema(ActivitiesSchema);
 
 export default Activities;
+
+
+if (Meteor.isServer) {
+    Meteor.publish('activities.my', function pubActivitiesMy() {
+        return Activities.find();
+    });
+
+    Meteor.publish('activities.dashboard', function pubActivitiesDashboard() {
+        return Activities.find();
+    });
+
+    Meteor.publish('activities.detail', function pubActivityDetail(activityId) {
+        return Activities.find({_id: activityId});
+    });
+}
+
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';

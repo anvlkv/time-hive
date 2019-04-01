@@ -6,16 +6,6 @@ import ManageSpace from './ManageSpace';
 
 
 const ManageSpaceContainer = withTracker(({match}) => {
-    // const todosHandle = Meteor.subscribe('todos.inList', id);
-    // const loading = !todosHandle.ready();
-    // const list = Lists.findOne(id);
-    // const listExists = !loading && !!list;
-    // return {
-    //     loading,
-    //     list,
-    //     listExists,
-    //     todos: listExists ? list.todos().fetch() : [],
-    // };
     const spacesHandler = Meteor.subscribe('spaces.my');
     const loading = !spacesHandler.ready();
     const spaces = Spaces.find({}).fetch();

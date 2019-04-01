@@ -1,0 +1,14 @@
+.ActivitiesList {
+  display: flex;
+  flex-direction: column;
+  li {
+    display: inline-flex;
+    .dot {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      border-radius: 100%;
+      margin: .2em;
+    }
+  }
+}

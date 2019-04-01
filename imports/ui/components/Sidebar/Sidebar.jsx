@@ -9,15 +9,9 @@ export default class Sidebar extends Component {
         links: [],
     };
 
-    setLinks(links, route){
-        this.setState({links: links.map(l => {
-            l.to = `${route}/${l.to}`;
-            return l;
-        })});
+    setLinks(links){
+        this.setState({links});
     }
-
-
-
 
     componentDidMount() {
         this.context.setLinks = this.setLinks.bind(this);

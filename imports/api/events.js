@@ -82,3 +82,17 @@ export const EventsSchema = new SimpleSchema({
 Events.attachSchema(EventsSchema);
 
 export default Events;
+
+if (Meteor.isServer) {
+    Meteor.publish('events.my', function pubSpacesMy() {
+        return Events.find();
+    });
+
+    Meteor.publish('events.dashboard', function pubSpacesDashboard() {
+        return Events.find();
+    });
+
+    Meteor.publish('events.detail', function pubSpaceDetail(eventId) {
+        return Events.find({_id: eventId});
+    });
+}
