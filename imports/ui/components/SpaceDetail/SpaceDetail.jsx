@@ -3,13 +3,17 @@ import PropTypes from 'prop-types'
 import ContentEditable from 'react-contenteditable';
 import Spaces from '../../../api/spaces';
 import ActivitiesList from '../ActivitiesList/ActivitiesList';
+import { withRouter } from 'react-router-dom'
+import { BaseComponent } from '../base';
+import EventsList from '../EventsList/EventsList';
+import './SpaceDetail.scss';
 
-
-export default class SpaceDetail extends React.Component {
+class SpaceDetail extends BaseComponent {
     static propTypes = {
         loading: PropTypes.bool,
         space: PropTypes.object,
-        activities: PropTypes.array
+        activities: PropTypes.array,
+        events: PropTypes.array
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -50,11 +54,22 @@ export default class SpaceDetail extends React.Component {
                                      className={'space-description-editor'}
                                      onBlur={this.onDoneEditing.bind(this)}/>
                     <hr/>
-                    <h2>{this.props.space.name}'s Activities</h2>
-                    <ActivitiesList allActivities={this.props.space.activities}
-                                    editable={true}
-                                    onActivityAdded={this.onActivityAdded.bind(this)}
-                                    onActivityRemoved={this.onActivityRemoved.bind(this)}/>
+                    <div>
+                        <h3>{this.props.space.name}'s Activities</h3>
+                        <ActivitiesList allActivities={this.props.space.activities}
+                                        editable={true}
+                                        onActivityAdded={this.onActivityAdded.bind(this)}
+                                        onActivityRemoved={this.onActivityRemoved.bind(this)}/>
+                    </div>
+                    <div>
+                        <h3>{this.props.space.name}'s Events</h3>
+                        <EventsList allEvents={this.props.space.events}
+                                        editable={true}
+                                        onEventAdded={this.onEventAdded.bind(this)}
+                                        onEventRemoved={this.onEventRemoved.bind(this)}/>
+                    </div>
+                    <hr/>
+                    <button onClick={this.destroySpace.bind(this)}>Destroy space</button>
                 </div>
             )
         }
@@ -63,15 +78,18 @@ export default class SpaceDetail extends React.Component {
 
     onActivityAdded(activityId) {
         Meteor.call('AddActivityToSpace', {activityId, spaceId: this.props.space._id});
-        // const space = this.props.space;
-        // if (!space.activities.find(a => a._id === activityId)) {
-        //     const activity = Activities.findOne({_id: activityId});
-        //     Spaces.update({_id: space._id}, {$set: {activities: [...space.activities, activity]}});
-        // }
+    }
+
+    onEventAdded(eventId) {
+        Meteor.call('AddEventToSpace', {eventId, spaceId: this.props.space._id});
     }
 
     onActivityRemoved(activityId) {
         console.log(activityId, this.props.space.activities.find(a => a._id === activityId));
+    }
+
+    onEventRemoved(eventId) {
+        console.log(eventId, this.props.space.events.find(a => a._id === eventId));
     }
 
     onDoneEditing(event) {
@@ -90,17 +108,23 @@ export default class SpaceDetail extends React.Component {
                 }
                 break;
             case 'space-description-editor':
-                if (event.target.children[0].className !== 'placeholder') {
-                    Spaces.update(this.props.space._id, {$set:{description: event.target.innerHTML}}, {}, (err, result) => {
-                        if (err || !result) {
-                            this.setState(SpaceDetail.getDerivedStateFromProps(this.props, this.state));
-                        }
-                    })
-
-                }
+                Spaces.update(this.props.space._id, {$set:{description: event.target.innerHTML}}, {}, (err, result) => {
+                    if (err || !result) {
+                        this.setState(SpaceDetail.getDerivedStateFromProps(this.props, this.state));
+                    }
+                });
                 break;
         }
     }
 
+    destroySpace() {
+        const id = this.props.space._id;
+        Spaces.remove({_id: id});
+        this.props.history.push('/space');
+
+    }
+
 
 }
+
+export default withRouter(SpaceDetail);

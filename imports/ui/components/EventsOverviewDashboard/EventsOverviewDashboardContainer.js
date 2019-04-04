@@ -6,8 +6,8 @@ import Events from '../../../api/events';
 
 
 const EventsOverviewDashboardContainer = withTracker(() => {
-    const spacesHandler = Meteor.subscribe('events.dashboard');
-    const loading = !spacesHandler.ready();
+    const eventsHandler = Meteor.subscribe('events.dashboard');
+    const loading = !eventsHandler.ready();
     const events = Events.find({}).fetch();
 
     return {

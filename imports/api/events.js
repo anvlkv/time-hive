@@ -22,11 +22,13 @@ export const EventsSchema = new SimpleSchema({
     },
     startDate: {
         type: Date,
-        label: 'Start'
+        label: 'Start',
+        optional: true
     },
     endDate: {
         type: Date,
-        label: 'End'
+        label: 'End',
+        optional: true
     },
     recurrence: {
         type: Object,

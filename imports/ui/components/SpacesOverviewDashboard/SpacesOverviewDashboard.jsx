@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import Spaces from '../../../api/spaces';
-import {
-    withRouter
-} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { BaseComponent } from '../base';
 
-class SpacesOverviewDashboard extends React.Component {
+class SpacesOverviewDashboard extends BaseComponent {
     static propTypes = {
         loading: PropTypes.bool,
         spaces: PropTypes.array,
@@ -49,16 +48,6 @@ class SpacesOverviewDashboard extends React.Component {
                 }
             });
         }
-    }
-
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
     }
 }
 

@@ -3,7 +3,9 @@ import Activities from '../imports/api/activities';
 import Spaces from '../imports/api/spaces';
 import Events from '../imports/api/events';
 import '../imports/methods/activities';
+import '../imports/methods/events';
 import './hooks/activities';
+import './hooks/events';
 
 // function insertLink(title, url) {
 //   Links.insert({ title, url, createdAt: new Date() });

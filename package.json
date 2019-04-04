@@ -14,9 +14,13 @@
     "history": "^4.9.0",
     "lodash": "^4.17.11",
     "meteor-node-stubs": "^0.4.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
     "react": "^16.5.0",
     "react-contenteditable": "^3.2.6",
+    "react-datetime": "^2.16.3",
     "react-dom": "^16.5.0",
+    "react-moment": "^0.8.4",
     "react-router-dom": "^5.0.0",
     "reset-css": "^4.0.1",
     "simpl-schema": "^1.5.5"

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ActivitiesList.scss';
 import PropTypes from 'prop-types'
 import ContentEditable from 'react-contenteditable';
 import Activities from '../../../api/activities';
+import { BaseComponent } from '../base';
 
-export default class ActivitiesList extends Component {
+export default class ActivitiesList extends BaseComponent {
     static propTypes = {
         allActivities: PropTypes.array,
         selectedActivities: PropTypes.array,
@@ -12,7 +13,8 @@ export default class ActivitiesList extends Component {
         onActivityRemoved: PropTypes.func,
         onSelectionChange: PropTypes.func,
         editable: PropTypes.bool,
-        selectable: PropTypes.bool
+        selectable: PropTypes.bool,
+        add: PropTypes.bool
     };
 
     state = {
@@ -38,15 +40,18 @@ export default class ActivitiesList extends Component {
     }
 
     updateActivityName(name, activity) {
-        Activities.update(activity._id, {$set: {name}}, {}, (err) => {
-            if(err) {
-                this.setState({});
-            }
-        });
+        if (name && activity.name !== name) {
+            Activities.update(activity._id, {$set: {name}}, {}, (err) => {
+                if(err) {
+                    this.setState({});
+                }
+            });
+        }
+
     }
 
     maybeRenderAddButton(){
-        if (this.props.editable) {
+        if (this.props.editable || this.props.add) {
             return (
                 <li key={'add-activity-list-item'} className={'add-activity-list-item'}>
                     <input type="text" name="newActivityName" value={this.state.newActivityName} onChange={this.handleInputChange.bind(this)}/>
@@ -56,16 +61,6 @@ export default class ActivitiesList extends Component {
         }
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
     onAddButtonClick(name = this.state.newActivityName) {
         Activities.insert({name}, (err, result) => {
             if(err) {
@@ -73,6 +68,7 @@ export default class ActivitiesList extends Component {
             }
             else {
                 this.props.onActivityAdded(result);
+                this.setState({newActivityName: ''});
             }
         });
     }
@@ -91,7 +87,12 @@ export default class ActivitiesList extends Component {
     }
 
     maybeRenderSelectionControl(activity) {
-
+        if (this.props.selectable) {
+            console.log(activity);
+            return (
+                <input type="checkbox"/>
+            )
+        }
     }
 
     render() {

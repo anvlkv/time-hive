@@ -5,7 +5,7 @@ import Landing from '../pages/Landing/Landing';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import ManageSpace from '../pages/ManageSpace/ManageSpace';
 import ManageSpaceContainer from '../pages/ManageSpace/ManageSpace.container';
-
+import 'moment-timezone';
 
 export default class App extends Component {
     constructor(props) {
