@@ -1,3 +1,4 @@
+import { noop } from 'lodash/util';
 import React from 'react';
 import './ActivitiesList.scss';
 import PropTypes from 'prop-types'
@@ -90,7 +91,29 @@ export default class ActivitiesList extends BaseComponent {
         if (this.props.selectable) {
             console.log(activity);
             return (
-                <input type="checkbox"/>
+                <input type="checkbox"
+                       checked={this.isActivitySelected(activity)}
+                       onChange={this.onActivitySelectionChange.bind(this, activity)}/>
+            )
+        }
+    }
+
+    isActivitySelected(activity) {
+        return !!(this.props.selectedActivities || []).find(a => a._id === activity._id);
+    }
+
+    onActivitySelectionChange(activity) {
+        if (this.isActivitySelected(activity)) {
+            const activityIndex = this.props.selectedActivities.findIndex(a => a._id === activity._id);
+            (this.props.onSelectionChange || noop)(
+                this.props.selectedActivities.slice(0, activityIndex).concat(
+                    this.props.selectedActivities.slice(activityIndex + 1, this.props.selectedActivities.length)
+                )
+            )
+        }
+        else {
+            (this.props.onSelectionChange || noop)(
+                (this.props.selectedActivities || []).concat([activity])
             )
         }
     }
