@@ -35,6 +35,10 @@ export default class ManageSpace extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.context.setLinks([]);
+    }
+
 
     render() {
         return (

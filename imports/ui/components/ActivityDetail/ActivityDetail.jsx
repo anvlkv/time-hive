@@ -51,14 +51,11 @@ export default class ActivityDetail extends React.Component {
                 }
                 break;
             case 'activity-description-editor':
-                if (event.target.children[0].className !== 'placeholder') {
-                    Activities.update(this.props.activity._id, {$set:{description: event.target.innerHTML}}, {}, (err) => {
-                        if (err) {
-                            this.setState({});
-                        }
-                    })
-
-                }
+                Activities.update(this.props.activity._id, {$set:{description: event.target.innerHTML}}, {}, (err) => {
+                    if (err) {
+                        this.setState({});
+                    }
+                });
                 break;
         }
     }

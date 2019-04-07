@@ -18,7 +18,7 @@ export default class Sidebar extends Component {
     }
 
     renderLink(link, index, lvl = '') {
-        if (link.children) {
+        if (link.children && link.to) {
             return (
                 <div key={`sidebar-link-${lvl}-${index}`}>
                     <NavLink to={`${lvl}${link.to}`}>{link.text}</NavLink>
@@ -29,6 +29,17 @@ export default class Sidebar extends Component {
                             </nav>
                         )
                     }}/>
+                </div>
+            )
+        }
+        else if (link.children) {
+            return (
+                <div key={`sidebar-link-${lvl}-${index}`}>
+                    {/*<NavLink to={`${lvl}${link.to}`}>{link.text}</NavLink>*/}
+                    <h6>{link.text}</h6>
+                    <nav>
+                        {link.children.map((l, i) => this.renderLink(l, i, lvl))}
+                    </nav>
                 </div>
             )
         }

@@ -160,7 +160,7 @@ export default class EventDetail extends BaseComponent {
                        Start
                     </dt>
                     <dd>
-                        <Moment date={this.props.event.endDate}/>
+                        <Moment date={this.props.event.startDate}/>
                     </dd>
                     <dt>
                         End

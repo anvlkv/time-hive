@@ -43,6 +43,11 @@ export const EventsSchema = new SimpleSchema({
         type: Number,
         label: 'Every'
     },
+    'recurrence.dayOfTheWeek': {
+        type: String,
+        label: 'Day of the week',
+        optional: true
+    },
     'recurrence.startDate': {
         type: Date,
         label: 'Starting'
@@ -59,25 +64,6 @@ export const EventsSchema = new SimpleSchema({
     },
     'activities.$': {
         type: ActivitiesSchema
-    },
-    occurrences: {
-        type: Array,
-        optional: true
-    },
-    'occurrences.$': {
-        type: Object
-    },
-    'occurrences.$.startDate': {
-        type: Date,
-        label: 'Starts'
-    },
-    'occurrences.$.endDate': {
-        type: Date,
-        label: 'Ends'
-    },
-    'occurrences.$.activities': {
-        type: ActivitiesSchema,
-        label: 'Selected activities'
     }
 });
 

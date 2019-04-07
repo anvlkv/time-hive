@@ -5,7 +5,7 @@ Events.after.update((userId, doc) => {
     const spaces = Spaces.find({'events._id':doc._id}).fetch();
 
     spaces.forEach(space => {
-        const eventIndex = space.events.findIndex((a) => a._id = doc._id);
+        const eventIndex = space.events.findIndex((a) => a._id === doc._id);
         Spaces.update({_id: space._id}, {$set: {[`events.${eventIndex}`]: doc}});
     });
 });

@@ -26,13 +26,13 @@ export default class ActivitiesList extends BaseComponent {
         super(props);
     }
 
-    renderActivity(activity) {
+    renderActivity(activity, disabled) {
         return (
             <li key={`activity-list-item-${activity._id}`}>
-                {this.maybeRenderSelectionControl(activity)}
+                {this.maybeRenderSelectionControl(activity, disabled)}
                 <div className={'dot'} style={{backgroundColor: activity.colorCode}}/>
                 <ContentEditable html={activity.name}
-                                 disabled={!this.props.editable}
+                                 disabled={disabled || !this.props.editable}
                                  className={'activity-name'}
                                  onBlur={(e) => this.updateActivityName(e.target.innerText, activity)}/>
                 {this.maybeRenderDeleteButton(activity)}
@@ -81,17 +81,16 @@ export default class ActivitiesList extends BaseComponent {
     }
 
     onDeleteButtonClick(activityId) {
-        // console.log(this, activity);
         Activities.remove(activityId, (a, b) => {
             console.log(a, b);
         });
     }
 
-    maybeRenderSelectionControl(activity) {
+    maybeRenderSelectionControl(activity, disabled) {
         if (this.props.selectable) {
-            console.log(activity);
             return (
                 <input type="checkbox"
+                       disabled={disabled}
                        checked={this.isActivitySelected(activity)}
                        onChange={this.onActivitySelectionChange.bind(this, activity)}/>
             )
@@ -121,7 +120,10 @@ export default class ActivitiesList extends BaseComponent {
     render() {
         return (
             <ul className={'ActivitiesList'}>
-                {this.props.allActivities.map(this.renderActivity.bind(this))}
+                {(this.props.selectedActivities || []).filter(activity => {
+                    return !this.props.allActivities.find(a => a._id === activity._id);
+                }).map(a => this.renderActivity(a, true))}
+                {this.props.allActivities.map(a => this.renderActivity(a))}
                 {this.maybeRenderAddButton()}
             </ul>
         );
