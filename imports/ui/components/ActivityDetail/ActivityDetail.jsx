@@ -45,6 +45,7 @@ export default class ActivityDetail extends React.Component {
                     Activities.update(this.props.activity._id, {$set:{name: event.target.innerText}}, {}, (err) => {
                         if (err) {
                             this.setState({});
+                            this.handleError(err);
                         }
                     });
 
@@ -54,6 +55,7 @@ export default class ActivityDetail extends React.Component {
                 Activities.update(this.props.activity._id, {$set:{description: event.target.innerHTML}}, {}, (err) => {
                     if (err) {
                         this.setState({});
+                        this.handleError(err);
                     }
                 });
                 break;

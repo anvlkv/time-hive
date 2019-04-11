@@ -8,6 +8,7 @@ import '../imports/methods/activities';
 import '../imports/methods/events';
 import './hooks/activities';
 import './hooks/events';
+import '../imports/api/user';
 
 // function insertLink(title, url) {
 //   Links.insert({ title, url, createdAt: new Date() });

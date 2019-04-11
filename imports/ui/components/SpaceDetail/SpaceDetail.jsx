@@ -102,6 +102,7 @@ class SpaceDetail extends BaseComponent {
                     Spaces.update(this.props.space._id, {$set:{name: event.target.innerText}}, {}, (err, result) => {
                         if (err || !result) {
                             this.setState(SpaceDetail.getDerivedStateFromProps(this.props, this.state));
+                            this.handleError(err);
                         }
                     });
 
@@ -111,6 +112,7 @@ class SpaceDetail extends BaseComponent {
                 Spaces.update(this.props.space._id, {$set:{description: event.target.innerHTML}}, {}, (err, result) => {
                     if (err || !result) {
                         this.setState(SpaceDetail.getDerivedStateFromProps(this.props, this.state));
+                        this.handleError(err);
                     }
                 });
                 break;

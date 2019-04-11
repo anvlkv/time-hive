@@ -46,9 +46,12 @@ class SpacesOverviewDashboard extends BaseComponent {
                 if (!err) {
                     this.props.history.push(`${this.props.history.location.pathname}/${spaceId}`);
                 }
+                else {
+                    this.handleError(err);
+                }
             });
         }
     }
 }
 
-export default withRouter(SpacesOverviewDashboard)
+export default withRouter(SpacesOverviewDashboard);

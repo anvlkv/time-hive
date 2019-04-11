@@ -45,6 +45,7 @@ export default class ActivitiesList extends BaseComponent {
             Activities.update(activity._id, {$set: {name}}, {}, (err) => {
                 if(err) {
                     this.setState({});
+                    this.handleError(err);
                 }
             });
         }
@@ -66,6 +67,7 @@ export default class ActivitiesList extends BaseComponent {
         Activities.insert({name}, (err, result) => {
             if(err) {
                 this.setState({});
+                this.handleError(err);
             }
             else {
                 this.props.onActivityAdded(result);

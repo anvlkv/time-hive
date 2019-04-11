@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { BaseComponent } from '../base';
+import TimeDetail from '../TimeDetail/TimeDetail';
+import './TimeOverviewDashboard.scss';
 
 class TimeOverviewDashboard extends BaseComponent {
     static propTypes = {
@@ -10,42 +12,33 @@ class TimeOverviewDashboard extends BaseComponent {
         history: PropTypes.object
     };
 
-    state = {
-
-    };
-
     render() {
+        if (this.props.loading) {
+            return (
+                <div>
+                    loading
+                </div>
+            )
+        }
         return (
-            <div>
+            <div className={'TimeOverviewDashboard'}>
                 <h3>
                     you own time
                 </h3>
                 {this.props.time.map((t, i) => {
                     return (
-                        <div key={i}>
-                            {JSON.stringify(t)}
-                        </div>
+                        <TimeDetail key={`time-detail-${i}`} time={t}/>
                     )
                 })}
-                {/*<form onSubmit={this.createSpace.bind(this)}>*/}
-                    {/*<label>*/}
-                        {/*What is it?*/}
-                        {/*<input type="text"*/}
-                               {/*name="newSpaceName"*/}
-                               {/*value={this.state.newSpaceName}*/}
-                               {/*onChange={this.handleInputChange.bind(this)} />*/}
-                    {/*</label>*/}
-                    {/*<button type="submit">Create new space</button>*/}
-                {/*</form>*/}
+
+                <TimeDetail onTimeRegistered={this.onTimeRegistered.bind(this)}/>
             </div>
         )
     }
 
-    createSpace(event) {
-        event.preventDefault();
-        Time.insert();
-        // if (this.state.newSpaceName) {
-        // }
+    onTimeRegistered(id) {
+        console.log(id);
+        // this.props.history.push(`${this.props.history.location.pathname}/${}`)
     }
 }
 

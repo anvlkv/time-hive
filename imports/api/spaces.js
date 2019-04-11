@@ -34,6 +34,13 @@ const SpaceSchema = new SimpleSchema({
     },
     'activities.$': {
         type: ActivitiesSchema
+    },
+    maintainersIds: {
+        type: Array,
+        optional: true
+    },
+    'maintainersIds.$': {
+        type: String
     }
 });
 

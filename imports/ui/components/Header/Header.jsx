@@ -11,7 +11,7 @@ export default class Header extends Component {
                     <NavLink to="/space">Space</NavLink>
                     <NavLink to="/time">Time</NavLink>
                 </nav>
-                <AccountsUIWrapper/>
+                <AccountsUIWrapper align={'right'}/>
             </header>
         );
     }

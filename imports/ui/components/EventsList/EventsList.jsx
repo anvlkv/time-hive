@@ -42,6 +42,7 @@ export default class EventsList extends BaseComponent {
             Events.update(event._id, {$set: {name}}, {}, (err) => {
                 if(err) {
                     this.setState({});
+                    this.handleError(err);
                 }
             });
         }
@@ -63,6 +64,7 @@ export default class EventsList extends BaseComponent {
         Events.insert({name}, (err, result) => {
             if(err) {
                 this.setState({});
+                this.handleError(err);
             }
             else {
                 this.props.onEventAdded(result);

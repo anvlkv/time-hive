@@ -16,4 +16,8 @@ export class BaseComponent extends React.Component {
             [name]: value
         });
     }
+
+    handleError(err) {
+        console.error(err);
+    }
 }
