@@ -1,13 +1,11 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import BaseSchema from './base';
+
 
 const Activities = new Mongo.Collection('activities');
 
 export const ActivitiesSchema = new SimpleSchema({
-    _id: {
-        type: String,
-        optional: true
-    },
     name: {
         type: String,
         label: 'Name',
@@ -33,8 +31,14 @@ export const ActivitiesSchema = new SimpleSchema({
     }
 });
 
-
+ActivitiesSchema.extend(BaseSchema);
 Activities.attachSchema(ActivitiesSchema);
+
+// Activities.deny({
+//     insert() { return true; },
+//     update() { return true; },
+//     remove() { return true; },
+// });
 
 export default Activities;
 

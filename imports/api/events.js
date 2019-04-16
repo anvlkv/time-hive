@@ -1,14 +1,12 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { ActivitiesSchema } from './activities';
+import BaseSchema from './base';
+import TimeSpanBase from './time-span-base';
 
 const Events = new Mongo.Collection('events');
 
 export const EventsSchema = new SimpleSchema({
-    _id: {
-        type: String,
-        optional: true
-    },
     name: {
         type: String,
         label: 'Name',
@@ -20,43 +18,6 @@ export const EventsSchema = new SimpleSchema({
         max: 20000,
         optional: true
     },
-    startDate: {
-        type: Date,
-        label: 'Start',
-        optional: true
-    },
-    endDate: {
-        type: Date,
-        label: 'End',
-        optional: true
-    },
-    recurrence: {
-        type: Object,
-        label: 'Recurring event',
-        optional: true
-    },
-    'recurrence.unit': {
-        type: String,
-        label: 'Time unit'
-    },
-    'recurrence.every': {
-        type: Number,
-        label: 'Every'
-    },
-    'recurrence.dayOfTheWeek': {
-        type: String,
-        label: 'Day of the week',
-        optional: true
-    },
-    'recurrence.startDate': {
-        type: Date,
-        label: 'Starting'
-    },
-    'recurrence.endDate': {
-        type: Date,
-        label: 'Until',
-        optional: true
-    },
     activities: {
         type: Array,
         label: 'Activities',
@@ -66,6 +27,9 @@ export const EventsSchema = new SimpleSchema({
         type: ActivitiesSchema
     }
 });
+
+EventsSchema.extend(BaseSchema);
+EventsSchema.extend(TimeSpanBase);
 
 Events.attachSchema(EventsSchema);
 

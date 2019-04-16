@@ -1,12 +1,16 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import BaseSchema from './base';
+import TimeSpanBase from './time-span-base';
 
 const Time = new Mongo.Collection('time');
 
 export const TimeSchema = new SimpleSchema({
-    _id: {
+    contributor: {
         type: String,
-        optional: true
+        autoValue() {
+            return this.userId;
+        }
     },
     isAvailable: {
         type: Boolean,
@@ -15,40 +19,11 @@ export const TimeSchema = new SimpleSchema({
     isUserDefault: {
         type: Boolean,
         optional: true
-    },
-    startDate: {
-        type: Date,
-        label: 'Start',
-        optional: true
-    },
-    endDate: {
-        type: Date,
-        label: 'End',
-        optional: true
-    },
-    recurrence: {
-        type: Object,
-        label: 'Recurring event',
-        optional: true
-    },
-    'recurrence.unit': {
-        type: String,
-        label: 'Time unit'
-    },
-    'recurrence.every': {
-        type: Number,
-        label: 'Every'
-    },
-    'recurrence.startDate': {
-        type: Date,
-        label: 'Starting'
-    },
-    'recurrence.endDate': {
-        type: Date,
-        label: 'Until',
-        optional: true
     }
 });
+
+TimeSchema.extend(BaseSchema);
+TimeSchema.extend(TimeSpanBase);
 
 Time.attachSchema(TimeSchema);
 
